@@ -1,0 +1,51 @@
+﻿/// <reference path="../variables.less" />
+
+/*columns*/
+.calc-grid-column(@index, @total_cols) when (@index >= 0) {
+    .col-@{index} {
+        width: percentage((@index / @total_cols));
+    }
+}
+
+.loop-grid-columns(@index, @total_cols) when (@index >= 0) {
+    .calc-grid-column(@index, @total_cols);
+    // next iteration
+    .loop-grid-columns((@index - 1), @total_cols);
+}
+
+.loop-grid-columns(@default-total_cols, @default-total_cols);
+
+
+.row {
+    width: 100%;
+    margin: 0 auto;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .col {
+        float: left;
+    }
+}
+
+/*Стили для общей разметки псевдо-табличной версткой*/
+/*необходимы, чтобы сделать скролл в элементах в плавающей высотой*/
+.table {
+    display: table;
+    table-layout: fixed;
+
+    &__row {
+        display: table-row;
+    }
+
+    &__col {
+        display: table-cell;
+    }
+}
